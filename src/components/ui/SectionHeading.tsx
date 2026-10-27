@@ -11,8 +11,8 @@ interface SectionHeadingProps {
 
 export const SectionHeading: React.FC<SectionHeadingProps> = ({ label, title, description, align = 'left', className }) => (
   <div className={cn('mb-12 md:mb-16', align === 'center' ? 'text-center mx-auto max-w-2xl' : 'max-w-3xl', className)}>
-    {label && <span className="text-xs font-semibold tracking-wider uppercase text-sky-400 mb-2.5 block">{label}</span>}
-    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-100 leading-tight">{title}</h2>
-    {description && <p className="mt-3.5 text-base sm:text-lg text-slate-400 leading-relaxed max-w-2xl">{description}</p>}
+    {label && <span className="mb-3 block text-xs font-medium uppercase tracking-[0.18em] text-accent">{label}</span>}
+    <h2 className="text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">{title}</h2>
+    {description && <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">{description}</p>}
   </div>
 );

@@ -8,43 +8,43 @@ export const SiteFooter: React.FC = () => {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
-    <footer className="border-t border-[#161b29] bg-[#05070a] pt-16 pb-12 text-slate-400">
+    <footer className="border-t border-border bg-background pb-12 pt-16 text-muted">
       <Container>
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-[#131724]">
-          <div className="md:col-span-6 space-y-4">
+        <div className="grid grid-cols-1 gap-10 border-b border-border pb-12 md:grid-cols-12">
+          <div className="space-y-4 md:col-span-6">
             <div className="flex items-center gap-2.5">
-              <div className="w-7 h-7 rounded bg-sky-500 flex items-center justify-center font-bold text-slate-950 text-xs">TC</div>
-              <span className="text-lg font-bold text-white tracking-tight">{personalInfo.name}</span>
+              <div className="flex h-7 w-7 items-center justify-center rounded-control border border-foreground bg-foreground font-mono text-xs font-semibold text-background">TC</div>
+              <span className="text-lg font-semibold tracking-tight text-foreground">{personalInfo.name}</span>
             </div>
-            <p className="text-sm text-slate-400 max-w-md leading-relaxed">Frontend Engineer specializing in React, TypeScript, and high-performance client architectures. Built with intentional craft and zero-slop engineering.</p>
-            <div className="pt-2 flex items-center gap-4">
+            <p className="max-w-md text-sm leading-relaxed text-muted">Frontend Engineer specializing in React, TypeScript, and high-performance client architectures. Built with intentional craft and zero-slop engineering.</p>
+            <div className="flex items-center gap-3 pt-2">
               {socialLinks.map((link) => (
-                <a key={link.label} href={link.href} target={link.iconName === 'mail' ? undefined : '_blank'} rel={link.iconName === 'mail' ? undefined : 'noopener noreferrer'} className="inline-flex items-center gap-2 text-xs font-medium text-slate-300 hover:text-sky-400 transition-colors bg-[#0d111b] border border-[#1b2234] px-3 py-1.5 rounded-md hover:border-sky-500/40" aria-label={link.label}>
-                  {link.iconName === 'github' && <GithubIcon className="w-3.5 h-3.5" />}
-                  {link.iconName === 'mail' && <Mail className="w-3.5 h-3.5" />}
+                <a key={link.label} href={link.href} target={link.iconName === 'mail' ? undefined : '_blank'} rel={link.iconName === 'mail' ? undefined : 'noopener noreferrer'} className="inline-flex items-center gap-2 rounded-control border border-border bg-surface px-3 py-1.5 text-xs font-medium text-muted transition-colors hover:border-border-strong hover:text-foreground" aria-label={link.label}>
+                  {link.iconName === 'github' && <GithubIcon className="h-3.5 w-3.5" />}
+                  {link.iconName === 'mail' && <Mail className="h-3.5 w-3.5" />}
                   <span>{link.label}</span>
                 </a>
               ))}
             </div>
           </div>
 
-          <div className="md:col-span-3 space-y-3">
-            <h3 className="text-xs font-semibold tracking-wider uppercase text-slate-200">Navigation</h3>
+          <div className="space-y-3 md:col-span-3">
+            <h3 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground">Navigation</h3>
             <ul className="space-y-2 text-sm">
-              {navItems.map((item) => <li key={item.href}><a href={item.href} className="hover:text-white transition-colors">{item.label}</a></li>)}
+              {navItems.map((item) => <li key={item.href}><a href={item.href} className="text-muted transition-colors hover:text-foreground">{item.label}</a></li>)}
             </ul>
           </div>
 
-          <div className="md:col-span-3 space-y-3">
-            <h3 className="text-xs font-semibold tracking-wider uppercase text-slate-200">Direct Contact</h3>
-            <p className="text-xs text-slate-400">Available for full-time engineering roles and high-impact frontend initiatives.</p>
-            <a href={`mailto:${personalInfo.email}`} className="inline-block text-sm font-mono text-sky-400 hover:text-sky-300 underline underline-offset-4 decoration-sky-400/30">{personalInfo.email}</a>
+          <div className="space-y-3 md:col-span-3">
+            <h3 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground">Direct Contact</h3>
+            <p className="text-xs leading-relaxed text-muted">Available for full-time engineering roles and high-impact frontend initiatives.</p>
+            <a href={`mailto:${personalInfo.email}`} className="inline-block font-mono text-sm text-accent underline decoration-accent/30 underline-offset-4 transition-colors hover:text-accent-hover">{personalInfo.email}</a>
           </div>
         </div>
 
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+        <div className="flex flex-col items-center justify-between gap-4 pt-8 text-xs text-muted sm:flex-row">
           <p>© {new Date().getFullYear()} {personalInfo.name}. All verified portfolio rights reserved.</p>
-          <button type="button" onClick={scrollToTop} className="inline-flex items-center gap-1.5 hover:text-white transition-colors text-slate-400 cursor-pointer" aria-label="Back to top"><span>Back to top</span><ArrowUp className="w-3.5 h-3.5" /></button>
+          <button type="button" onClick={scrollToTop} className="inline-flex cursor-pointer items-center gap-1.5 text-muted transition-colors hover:text-foreground" aria-label="Back to top"><span>Back to top</span><ArrowUp className="h-3.5 w-3.5" /></button>
         </div>
       </Container>
     </footer>

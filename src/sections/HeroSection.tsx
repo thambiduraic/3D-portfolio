@@ -5,53 +5,51 @@ import { Container } from '../components/layout/Container';
 import { Button } from '../components/ui/Button';
 
 export const HeroSection: React.FC = () => (
-  <section className="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden border-b border-[#131724]">
-    <div className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-sky-500/10 rounded-full blur-[120px]" aria-hidden="true" />
+  <section className="relative overflow-hidden border-b border-border pb-[var(--spacing-section)] pt-32 md:pb-[var(--spacing-section-lg)] md:pt-44">
     <Container>
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-        <div className="lg:col-span-7 space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#111624] border border-[#1f283d] text-xs font-medium text-sky-400">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>Available for Frontend Roles</span>
-            <span className="text-slate-600">|</span>
-            <span className="text-slate-300">{personalInfo.experienceYears}</span>
+      <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-8">
+        <div className="space-y-6 lg:col-span-7">
+          <div className="inline-flex flex-wrap items-center gap-x-2 gap-y-1 rounded-control border border-border bg-surface px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-muted">
+            <span className="h-2 w-2 rounded-full bg-success" aria-hidden="true" />
+            <span className="text-foreground">Available for Frontend Roles</span>
+            <span className="hidden text-dim sm:inline" aria-hidden="true">|</span>
+            <span>{personalInfo.experienceYears}</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.08]">
+          <h1 className="max-w-3xl text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-5xl md:text-6xl">
             Frontend Engineer specializing in{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">React &amp; TypeScript</span>
+            <span className="text-accent sm:whitespace-nowrap">React &amp; TypeScript</span>
           </h1>
-          <p className="text-lg sm:text-xl text-slate-300 leading-relaxed max-w-2xl font-normal">{personalInfo.headline}</p>
-          <div className="pt-2 flex flex-wrap items-center gap-4">
-            <Button href="#projects" size="lg" variant="primary" icon={<ArrowDown className="w-4 h-4" />}>View Selected Work</Button>
-            <Button href="#experience" size="lg" variant="secondary" icon={<ArrowUpRight className="w-4 h-4" />}>Experience &amp; Background</Button>
+          <p className="max-w-2xl text-lg font-normal leading-relaxed text-muted sm:text-xl">{personalInfo.headline}</p>
+          <div className="flex flex-wrap items-center gap-4 pt-2">
+            <Button href="#projects" size="lg" variant="primary" icon={<ArrowDown className="h-4 w-4" />}>View Selected Work</Button>
+            <Button href="#experience" size="lg" variant="secondary" icon={<ArrowUpRight className="h-4 w-4" />}>Experience &amp; Background</Button>
           </div>
-          <div className="pt-6 border-t border-[#151a27] flex flex-wrap items-center gap-3 text-xs text-slate-400">
-            <span className="font-semibold text-slate-300">Core Stack:</span>
-            {['React 19', 'TypeScript', 'Tailwind CSS', 'Redux', 'Vite', 'REST APIs'].map((tech) => <span key={tech} className="px-2.5 py-1 rounded bg-[#0e121d] border border-[#1b2234] text-slate-300">{tech}</span>)}
+          <div className="flex flex-wrap items-center gap-3 border-t border-border pt-6 text-xs text-muted">
+            <span className="font-medium uppercase tracking-[0.14em] text-dim">Core Stack:</span>
+            {['React 19', 'TypeScript', 'Tailwind CSS', 'Redux', 'Vite', 'REST APIs'].map((tech) => <span key={tech} className="rounded-control border border-border bg-surface px-2.5 py-1 font-mono text-[11px] text-muted">{tech}</span>)}
           </div>
         </div>
 
         <div className="lg:col-span-5">
-          <div className="relative rounded-xl bg-[#0d1018] border border-[#1e2538] p-6 shadow-2xl overflow-hidden">
-            <div className="flex items-center justify-between pb-4 border-b border-[#181f30]">
-              <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-rose-500/80" /><div className="w-3 h-3 rounded-full bg-amber-500/80" /><div className="w-3 h-3 rounded-full bg-emerald-500/80" /></div>
-              <span className="text-xs font-mono text-slate-400">engineer.config.ts</span>
+          <div className="relative overflow-hidden rounded-card border border-border bg-surface">
+            <div className="border-b border-border px-5 py-3">
+              <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-dim">engineer.config.ts</span>
             </div>
-            <div className="py-4 space-y-4 font-mono text-xs">
-              <div className="text-slate-400"><span className="text-purple-400">export const</span>{' '}<span className="text-blue-300">architectProfile</span> = {'{'}</div>
-              <div className="pl-4 space-y-1.5 text-slate-300">
-                <div><span className="text-slate-400">name:</span>{' '}<span className="text-emerald-300">'{personalInfo.name}'</span>,</div>
-                <div><span className="text-slate-400">role:</span>{' '}<span className="text-emerald-300">'AI Frontend Engineer'</span>,</div>
-                <div><span className="text-slate-400">specialization:</span>{' '}<span className="text-emerald-300">'React + Strict TypeScript'</span>,</div>
-                <div><span className="text-slate-400">designDiscipline:</span>{' '}<span className="text-emerald-300">'Anti-Slop &amp; High Usability'</span>,</div>
-                <div><span className="text-slate-400">performancePriority:</span>{' '}<span className="text-sky-300">[</span><span className="text-emerald-300">'Sub-second FCP'</span>,{' '}<span className="text-emerald-300">'Accessible Dom'</span><span className="text-sky-300">]</span>,</div>
+            <div className="space-y-4 p-5 font-mono text-xs leading-relaxed">
+              <div className="text-muted"><span className="text-accent">export const</span>{' '}<span className="text-foreground">architectProfile</span> = {'{'}</div>
+              <div className="space-y-1.5 pl-4">
+                <div><span className="text-muted">name:</span>{' '}<span className="text-foreground">'{personalInfo.name}'</span>,</div>
+                <div><span className="text-muted">role:</span>{' '}<span className="text-foreground">'AI Frontend Engineer'</span>,</div>
+                <div><span className="text-muted">specialization:</span>{' '}<span className="text-foreground">'React + Strict TypeScript'</span>,</div>
+                <div><span className="text-muted">designDiscipline:</span>{' '}<span className="text-foreground">'Anti-Slop &amp; High Usability'</span>,</div>
+                <div><span className="text-muted">performancePriority:</span>{' '}<span className="text-dim">[</span><span className="text-foreground">'Sub-second FCP'</span>,{' '}<span className="text-foreground">'Accessible Dom'</span><span className="text-dim">]</span>,</div>
               </div>
-              <div className="text-slate-400">{'}'};</div>
+              <div className="text-muted">{'}'};</div>
             </div>
-            <div className="mt-4 pt-4 border-t border-[#181f30] grid grid-cols-3 gap-2 text-center">
-              <div className="p-2.5 rounded bg-[#090b11] border border-[#161c2b"><Layers className="w-4 h-4 text-sky-400 mx-auto mb-1" /><div className="text-[11px] font-semibold text-slate-200">React &amp; Vite</div><div className="text-[10px] text-slate-400">Fast Bundling</div></div>
-              <div className="p-2.5 rounded bg-[#090b11] border border-[#161c2b"><Code className="w-4 h-4 text-blue-400 mx-auto mb-1" /><div className="text-[11px] font-semibold text-slate-200">Strict Types</div><div className="text-[10px] text-slate-400">Zero 'any'</div></div>
-              <div className="p-2.5 rounded bg-[#090b11] border border-[#161c2b"><Cpu className="w-4 h-4 text-emerald-400 mx-auto mb-1" /><div className="text-[11px] font-semibold text-slate-200">REST APIs</div><div className="text-[10px] text-slate-400">Clean State</div></div>
+            <div className="grid grid-cols-3 gap-2 border-t border-border p-4 text-center">
+              <div className="rounded-control border border-border bg-background p-3"><Layers className="mx-auto mb-1 h-4 w-4 text-accent" /><div className="text-[11px] font-semibold text-foreground">React &amp; Vite</div><div className="text-[10px] text-muted">Fast Bundling</div></div>
+              <div className="rounded-control border border-border bg-background p-3"><Code className="mx-auto mb-1 h-4 w-4 text-accent" /><div className="text-[11px] font-semibold text-foreground">Strict Types</div><div className="text-[10px] text-muted">Zero 'any'</div></div>
+              <div className="rounded-control border border-border bg-background p-3"><Cpu className="mx-auto mb-1 h-4 w-4 text-accent" /><div className="text-[11px] font-semibold text-foreground">REST APIs</div><div className="text-[10px] text-muted">Clean State</div></div>
             </div>
           </div>
         </div>

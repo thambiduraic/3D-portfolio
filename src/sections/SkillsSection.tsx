@@ -9,27 +9,27 @@ export const SkillsSection: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const getCategoryIcon = (index: number) => {
     switch (index) {
-      case 0: return <Layout className="w-5 h-5 text-sky-400" />;
-      case 1: return <Cpu className="w-5 h-5 text-blue-400" />;
-      case 2: return <Database className="w-5 h-5 text-emerald-400" />;
+      case 0: return <Layout className="h-5 w-5 text-accent" />;
+      case 1: return <Cpu className="h-5 w-5 text-accent" />;
+      case 2: return <Database className="h-5 w-5 text-accent" />;
       case 3:
-      default: return <Terminal className="w-5 h-5 text-purple-400" />;
+      default: return <Terminal className="h-5 w-5 text-accent" />;
     }
   };
 
   return (
-    <section id="skills" className="py-24 md:py-32 border-b border-[#131724]"><Container>
+    <section id="skills" className="border-b border-border py-[var(--spacing-section)] md:py-[var(--spacing-section-lg)]"><Container>
       <SectionHeading label="Technical Competencies" title="Skills & Technologies" description="Verified toolsets and technologies applied across production web applications, client frameworks, and backend integrations." />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {skillCategories.map((category: SkillCategory, idx: number) => {
           const isSelected = selectedCategory === idx;
-          return <div key={category.title} onClick={() => setSelectedCategory(isSelected ? null : idx)} className={`rounded-xl border p-6 transition-all duration-200 cursor-pointer ${isSelected ? 'bg-[#101422] border-sky-500/50 ring-1 ring-sky-500/20' : 'bg-[#0c0f17] border-[#1d2335] hover:border-[#2a334d] hover:bg-[#0e121d]'}`}>
-            <div className="flex items-center gap-3.5 mb-3"><div className="p-2.5 rounded-lg bg-[#141928] border border-[#1f283f]">{getCategoryIcon(idx)}</div><div><h3 className="text-lg font-bold text-white tracking-tight">{category.title}</h3><p className="text-xs text-slate-400">{category.description}</p></div></div>
-            <div className="mt-5 flex flex-wrap gap-2">{category.skills.map((skill: string) => <span key={skill} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#121624] border border-[#20273c] text-xs font-medium text-slate-200 hover:border-sky-500/40 hover:text-white transition-colors"><Check className="w-3 h-3 text-sky-400" /><span>{skill}</span></span>)}</div>
-          </div>;
+          return <button key={category.title} type="button" onClick={() => setSelectedCategory(isSelected ? null : idx)} aria-pressed={isSelected} className={`w-full cursor-pointer rounded-card border p-6 text-left transition-colors duration-200 ${isSelected ? 'border-accent bg-accent-subtle' : 'border-border bg-surface hover:border-border-strong'}`}>
+            <div className="mb-3 flex items-center gap-3.5"><div className="rounded-control border border-border bg-background p-2.5">{getCategoryIcon(idx)}</div><div><h3 className="text-lg font-semibold tracking-tight text-foreground">{category.title}</h3><p className="mt-0.5 text-xs leading-relaxed text-muted">{category.description}</p></div></div>
+            <div className="mt-5 flex flex-wrap gap-2">{category.skills.map((skill: string) => <span key={skill} className="inline-flex items-center gap-1.5 rounded-control border border-border bg-background px-3 py-1.5 text-xs font-medium text-muted"><Check className="h-3 w-3 text-accent" /><span>{skill}</span></span>)}</div>
+          </button>;
         })}
       </div>
-      <div className="mt-8 p-4 rounded-lg bg-[#0a0d15] border border-[#161b29] text-center"><p className="text-xs text-slate-400">Note: All listed technical competencies reflect verified work history, production projects, and educational instruction experience without inflated arbitrary percentages.</p></div>
+      <div className="mt-8 rounded-control border border-border bg-surface p-4 text-center"><p className="text-xs leading-relaxed text-muted">Note: All listed technical competencies reflect verified work history, production projects, and educational instruction experience without inflated arbitrary percentages.</p></div>
     </Container></section>
   );
 };
