@@ -16,21 +16,30 @@ No `test` or `typecheck` script exists. Typechecking runs inside `build` via `ts
 ## Stack (verified in package.json)
 
 - React 19, TypeScript ~6.0.2, Vite 8, ESLint flat config
-- Tailwind CSS 4 via `@tailwindcss/vite` plugin — imported with `@import "tailwindcss"` in `src/styles/globals.css`. There is no `tailwind.config.js`. Arbitrary values like `bg-[#07090e]` are used throughout.
-- Framer Motion (animation), lucide-react (icons)
+- Tailwind CSS 4 via `@tailwindcss/vite` plugin — imported with `@import "tailwindcss"` in `src/styles/globals.css`. There is no `tailwind.config.js`. UI colors use CSS variables mapped through `@theme inline`; avoid hardcoding theme colors in components.
+- Framer Motion + GSAP/ScrollTrigger (UI transitions and scroll reveals), lucide-react (icons)
+- Three.js + `@react-three/fiber` + `@react-three/drei` (full-screen immersive scene, lazy-loaded)
 - npm + `package-lock.json`; `"type": "module"`
-- Dark theme: `#07090e` background, sky `#38bdf8` accent (CSS variables in `globals.css`)
+- Dark/light theme via `data-theme` on `<html>`: dark defaults `#07090e`/`#38bdf8`, light uses `#f4f7fb`/`#0369a1`; choice persists under `portfolio:color-theme`
 
 ## Entrypoints & architecture (actual layout)
 
-- `index.html` → `/src/main.tsx` → `src/App.tsx` (strict mode, mounts at `#root`)
+- `index.html` → `/src/main.tsx` → `src/App.tsx` (strict mode, mounts at `#root`; inline theme pre-paint script)
+- `src/App.tsx` — theme + portfolio mode shell: lazy immersive mode or classic DOM mode + persistent `ModeToggle` with theme switch
+- `src/context/` — `ThemeProvider`/`useTheme` (dark/light persistence) and `PortfolioModeProvider`/`usePortfolioMode` (mode, active immersive section, localStorage persistence)
 - `src/components/layout/` — SiteHeader, SiteFooter, Container
-- `src/components/ui/` — Button, Icons, SectionHeading
-- `src/components/three/` — **empty** (no Three.js installed; don't add 3D without checking deps)
-- `src/sections/` — Hero, Projects, Experience, Skills, About, Contact
-- `src/data/portfolioData.ts` — single source of truth for all content (personal info, nav, projects, experience, skills, social links)
-- `src/types/portfolio.ts` — TS interfaces
-- `src/lib/utils.ts` — `cn()` helper
+- `src/components/ui/` — Button, Icons, SectionHeading, ModeToggle, ProfileCard (static classic hero)
+- `src/components/immersive/` — ImmersivePortfolio, ImmersiveHeader, ImmersivePanel
+- `src/components/three/` — ImmersiveVisual, lazy-loaded ImmersiveScene, CameraRig, FramePacer, ImmersiveNode, NodeConnection, ScenePipeline, AmbientShards, ParticleField, SceneFallback, sceneTheme; `HeroVisual`/`ResumeScene`/`TechCore` remain from the earlier hero scene but are no longer mounted
+- `src/components/animation/` — GSAP `Reveal` wrapper
+- `src/hooks/` — `usePrefersReducedMotion`, `useSceneActive` (pauses rendering off-screen)
+- `src/sections/` — classic Hero, Projects, Experience, Skills, About, Contact
+- `src/data/portfolioData.ts` — single source of truth for all content (personal info, immersive nav, projects, experience, skills, social links)
+- `src/types/portfolio.ts` — TS types (`PortfolioMode`, `ColorTheme`, `ImmersiveSectionId`)
+- Default display mode: immersive on desktop, classic on mobile or when reduced motion is set; user choice persists in `localStorage` under `portfolio:display-mode`.
+- Default theme is dark; the `ModeToggle` sun/moon control switches themes and the choice persists under `portfolio:color-theme`.
+- Immersive mode is a fixed full-screen R3F canvas with a DOM overlay; active section drives `CameraRig` damping and clickable 3D nodes. The scene palette follows the active theme.
+- `src/lib/utils.ts` — `cn()` helper; `src/lib/gsap.ts` — ScrollTrigger registration
 - `src/styles/globals.css` — Tailwind import + design tokens
 - `src/assets/` — hero.png, react.svg, vite.svg
 

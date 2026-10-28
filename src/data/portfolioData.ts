@@ -1,4 +1,11 @@
-import type { Experience, NavItem, Project, SkillCategory, SocialLink } from '../types/portfolio';
+import type {
+  Experience,
+  ImmersiveSection,
+  NavItem,
+  Project,
+  SkillCategory,
+  SocialLink,
+} from '../types/portfolio';
 
 export const personalInfo = {
   name: 'Thambidurai Chennaiyen',
@@ -11,6 +18,17 @@ export const personalInfo = {
   summary:
     'Frontend engineer with around two years of experience delivering performant web applications, responsive component systems, and scalable user experiences. Focused on clean code, type safety, and product polish.',
 };
+
+export const sceneTechnologies = ['React', 'TypeScript', 'Python', 'Django', 'PostgreSQL', 'Node.js'];
+
+export const immersiveSections: ImmersiveSection[] = [
+  { id: 'overview', label: 'Overview' },
+  { id: 'frontend', label: 'Frontend' },
+  { id: 'backend', label: 'Backend' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'contact', label: 'Contact' },
+];
 
 export const navItems: NavItem[] = [
   { label: 'Projects', href: '#projects' },

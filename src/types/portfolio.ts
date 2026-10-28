@@ -1,3 +1,19 @@
+export type PortfolioMode = 'immersive' | 'classic';
+export type ColorTheme = 'dark' | 'light';
+
+export type ImmersiveSectionId =
+  | 'overview'
+  | 'frontend'
+  | 'backend'
+  | 'experience'
+  | 'projects'
+  | 'contact';
+
+export interface ImmersiveSection {
+  id: ImmersiveSectionId;
+  label: string;
+}
+
 export interface Project {
   id: string;
   title: string;
