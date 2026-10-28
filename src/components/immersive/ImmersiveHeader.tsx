@@ -1,4 +1,5 @@
 import React from 'react';
+import type { RefObject } from 'react';
 import { immersiveSections, personalInfo } from '../../data/portfolioData';
 import type { ImmersiveSectionId } from '../../types/portfolio';
 import { cn } from '../../lib/utils';
@@ -6,10 +7,18 @@ import { cn } from '../../lib/utils';
 interface ImmersiveHeaderProps {
   activeSection: ImmersiveSectionId;
   onNavigate: (section: ImmersiveSectionId) => void;
+  headerRef: RefObject<HTMLElement | null>;
 }
 
-export const ImmersiveHeader: React.FC<ImmersiveHeaderProps> = ({ activeSection, onNavigate }) => (
-  <header className="fixed inset-x-0 top-0 z-40 border-b border-border/60 bg-background/70 backdrop-blur-xl">
+export const ImmersiveHeader: React.FC<ImmersiveHeaderProps> = ({
+  activeSection,
+  onNavigate,
+  headerRef,
+}) => (
+  <header
+    ref={headerRef}
+    className="fixed inset-x-0 top-0 z-40 border-b border-border/60 bg-background/70 backdrop-blur-xl"
+  >
     <div className="mx-auto flex max-w-[1600px] flex-col gap-3 px-4 py-3 md:flex-row md:items-center md:justify-between md:gap-6 md:px-8">
       <button
         type="button"

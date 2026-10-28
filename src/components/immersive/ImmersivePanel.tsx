@@ -147,7 +147,7 @@ const OverviewContent: React.FC<{ onNavigate: (section: ImmersiveSectionId) => v
     </div>
 
     <div className="space-y-3">
-      <h1 className="text-balance text-4xl font-semibold leading-[1.02] tracking-tight text-foreground sm:text-5xl">
+      <h1 className="text-balance text-4xl font-semibold leading-[1.02] tracking-tight text-foreground xl:text-5xl">
         {personalInfo.name}
       </h1>
       <p className="text-lg font-medium text-accent">{personalInfo.role}</p>

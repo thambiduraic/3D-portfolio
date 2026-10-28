@@ -1,13 +1,17 @@
 import React from 'react';
 import { Canvas } from '@react-three/fiber';
-import type { ColorTheme, ImmersiveSectionId } from '../../types/portfolio';
+import type {
+  ColorTheme,
+  ImmersiveSafeArea,
+  ImmersiveSectionId,
+} from '../../types/portfolio';
 import { AmbientShards } from './AmbientShards';
 import { CameraRig } from './CameraRig';
 import { FramePacer } from './FramePacer';
 import { ImmersiveNode } from './ImmersiveNode';
 import { ParticleField } from './ParticleField';
 import { ScenePipeline } from './ScenePipeline';
-import { immersiveSceneNodes } from './sceneConfig';
+import { immersiveSceneNodes, SCENE_FOV } from './sceneConfig';
 import { sceneThemes } from './sceneTheme';
 
 interface ImmersiveSceneProps {
@@ -15,6 +19,7 @@ interface ImmersiveSceneProps {
   activeSection: ImmersiveSectionId;
   reducedMotion: boolean;
   onSelectSection: (section: ImmersiveSectionId) => void;
+  safeArea: ImmersiveSafeArea;
   theme: ColorTheme;
 }
 
@@ -23,6 +28,7 @@ const ImmersiveScene: React.FC<ImmersiveSceneProps> = ({
   activeSection,
   reducedMotion,
   onSelectSection,
+  safeArea,
   theme,
 }) => {
   const palette = sceneThemes[theme];
@@ -33,7 +39,7 @@ const ImmersiveScene: React.FC<ImmersiveSceneProps> = ({
       frameloop={active ? 'demand' : 'never'}
       shadows="soft"
       resize={{ scroll: false, debounce: 100 }}
-      camera={{ position: [0, 0.1, 11], fov: 42, near: 0.1, far: 80 }}
+      camera={{ position: [0, 0.1, 11], fov: SCENE_FOV, near: 0.1, far: 80 }}
       gl={{
         antialias: true,
         alpha: true,
@@ -84,7 +90,11 @@ const ImmersiveScene: React.FC<ImmersiveSceneProps> = ({
         decay={2}
       />
 
-      <CameraRig activeSection={activeSection} reducedMotion={reducedMotion} />
+      <CameraRig
+        activeSection={activeSection}
+        reducedMotion={reducedMotion}
+        safeArea={safeArea}
+      />
 
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2.18, 0]} receiveShadow>
         <circleGeometry args={[4.8, 64]} />

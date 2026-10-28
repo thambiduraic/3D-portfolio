@@ -22,8 +22,13 @@ const getInitialMode = (): PortfolioMode => {
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const hasWideViewport = window.matchMedia('(min-width: 768px)').matches;
+  const isShortLandscape = window.matchMedia(
+    '(orientation: landscape) and (max-height: 600px)',
+  ).matches;
 
-  return !prefersReducedMotion && hasWideViewport ? 'immersive' : 'classic';
+  return !prefersReducedMotion && hasWideViewport && !isShortLandscape
+    ? 'immersive'
+    : 'classic';
 };
 
 interface PortfolioModeProviderProps {

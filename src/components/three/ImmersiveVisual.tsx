@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { useTheme } from '../../context/theme';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { useSceneActive } from '../../hooks/useSceneActive';
-import type { ImmersiveSectionId } from '../../types/portfolio';
+import type { ImmersiveSafeArea, ImmersiveSectionId } from '../../types/portfolio';
 import { SceneBoundary } from './SceneBoundary';
 import { SceneFallback } from './SceneFallback';
 
@@ -11,11 +11,13 @@ const ImmersiveScene = lazy(() => import('./ImmersiveScene'));
 interface ImmersiveVisualProps {
   activeSection: ImmersiveSectionId;
   onSelectSection: (section: ImmersiveSectionId) => void;
+  safeArea: ImmersiveSafeArea;
 }
 
 export const ImmersiveVisual: React.FC<ImmersiveVisualProps> = ({
   activeSection,
   onSelectSection,
+  safeArea,
 }) => {
   const prefersReducedMotion = usePrefersReducedMotion();
   const { theme } = useTheme();
@@ -33,6 +35,7 @@ export const ImmersiveVisual: React.FC<ImmersiveVisualProps> = ({
             activeSection={activeSection}
             reducedMotion={prefersReducedMotion}
             onSelectSection={onSelectSection}
+            safeArea={safeArea}
             theme={theme}
           />
         </SceneBoundary>

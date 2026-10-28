@@ -32,13 +32,13 @@ No `test` or `typecheck` script exists. Typechecking runs inside `build` via `ts
 - `src/components/immersive/` — ImmersivePortfolio, ImmersiveHeader, ImmersivePanel
 - `src/components/three/` — ImmersiveVisual, lazy-loaded ImmersiveScene, CameraRig, FramePacer, ImmersiveNode, NodeConnection, ScenePipeline, AmbientShards, ParticleField, SceneFallback, sceneTheme; `HeroVisual`/`ResumeScene`/`TechCore` remain from the earlier hero scene but are no longer mounted
 - `src/components/animation/` — GSAP `Reveal` wrapper
-- `src/hooks/` — `usePrefersReducedMotion`, `useSceneActive` (pauses rendering off-screen)
+- `src/hooks/` — `usePrefersReducedMotion`, `useSceneActive` (pauses rendering off-screen), `useImmersiveLayout` (safe-area measurement + side-panel layout)
 - `src/sections/` — classic Hero, Projects, Experience, Skills, About, Contact
 - `src/data/portfolioData.ts` — single source of truth for all content (personal info, immersive nav, projects, experience, skills, social links)
-- `src/types/portfolio.ts` — TS types (`PortfolioMode`, `ColorTheme`, `ImmersiveSectionId`)
-- Default display mode: immersive on desktop, classic on mobile or when reduced motion is set; user choice persists in `localStorage` under `portfolio:display-mode`.
+- `src/types/portfolio.ts` — TS types (`PortfolioMode`, `ColorTheme`, `ImmersiveSectionId`, `ImmersiveSafeArea`)
+- Default display mode: immersive on desktop and tall landscape, classic on phones, short landscape, or when reduced motion is set; user choice persists in `localStorage` under `portfolio:display-mode`.
 - Default theme is dark; the `ModeToggle` sun/moon control switches themes and the choice persists under `portfolio:color-theme`.
-- Immersive mode is a fixed full-screen R3F canvas with a DOM overlay; active section drives `CameraRig` damping and clickable 3D nodes. The scene palette follows the active theme.
+- Immersive mode is a fixed full-screen R3F canvas with a DOM overlay; active section drives `CameraRig` damping and clickable 3D nodes. The scene palette follows the active theme. Desktop and landscape use a left panel; portrait uses a bottom sheet capped at `52dvh`. `useImmersiveLayout` feeds measured header/panel safe areas to compact camera framing so labels stay clear of the header and controls.
 - `src/lib/utils.ts` — `cn()` helper; `src/lib/gsap.ts` — ScrollTrigger registration
 - `src/styles/globals.css` — Tailwind import + design tokens
 - `src/assets/` — hero.png, react.svg, vite.svg

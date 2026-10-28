@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import type { ThreeEvent } from '@react-three/fiber';
 import { AdditiveBlending, MathUtils, NormalBlending } from 'three';
 import type {
@@ -31,6 +31,17 @@ export const ImmersiveNode: React.FC<ImmersiveNodeProps> = ({
   palette,
 }) => {
   const [hovered, setHovered] = useState(false);
+  const viewportWidth = useThree((state) => state.size.width);
+  const labelScale =
+    activeSection === 'overview'
+      ? viewportWidth < 380
+        ? 1.7
+        : viewportWidth < 480
+          ? 1.45
+          : viewportWidth < 920
+            ? 1.4
+            : 1
+      : 1;
   const groupRef = useRef<Group>(null);
   const pulseRef = useRef<Mesh>(null);
   const nodeMaterialRef = useRef<MeshStandardMaterial>(null);
@@ -219,7 +230,10 @@ export const ImmersiveNode: React.FC<ImmersiveNodeProps> = ({
         )}
 
         {label && (
-          <sprite position={[0, 0.37, 0.02]} scale={[label.aspect * 0.28, 0.28, 1]}>
+          <sprite
+            position={[0, 0.37, 0.02]}
+            scale={[label.aspect * 0.28 * labelScale, 0.28 * labelScale, 1]}
+          >
             <spriteMaterial
               ref={labelMaterialRef}
               map={label.texture}

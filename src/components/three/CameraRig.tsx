@@ -1,18 +1,34 @@
 import React, { useMemo, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { MathUtils, Vector3 } from 'three';
-import type { ImmersiveSectionId } from '../../types/portfolio';
-import { getCameraView } from './sceneConfig';
+import type { ImmersiveSafeArea, ImmersiveSectionId } from '../../types/portfolio';
+import { getCameraView, getFramedCameraView } from './sceneConfig';
 
 interface CameraRigProps {
   activeSection: ImmersiveSectionId;
   reducedMotion: boolean;
+  safeArea: ImmersiveSafeArea;
 }
 
-export const CameraRig: React.FC<CameraRigProps> = ({ activeSection, reducedMotion }) => {
+export const CameraRig: React.FC<CameraRigProps> = ({
+  activeSection,
+  reducedMotion,
+  safeArea,
+}) => {
   const viewportWidth = useThree((state) => state.size.width);
+  const viewportHeight = useThree((state) => state.size.height);
   const compact = viewportWidth < 1280;
-  const view = useMemo(() => getCameraView(activeSection, compact), [activeSection, compact]);
+  const view = useMemo(
+    () =>
+      compact
+        ? getFramedCameraView(activeSection, {
+            width: viewportWidth,
+            height: viewportHeight,
+            safeArea,
+          })
+        : getCameraView(activeSection),
+    [activeSection, compact, safeArea, viewportHeight, viewportWidth],
+  );
   const desiredPosition = useMemo(() => new Vector3(...view.position), [view]);
   const desiredTarget = useMemo(() => new Vector3(...view.target), [view]);
   const lookAtTarget = useRef(new Vector3());

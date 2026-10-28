@@ -1,6 +1,13 @@
 export type PortfolioMode = 'immersive' | 'classic';
 export type ColorTheme = 'dark' | 'light';
 
+export interface ImmersiveSafeArea {
+  top: number;
+  right: number;
+  bottom: number;
+  left: number;
+}
+
 export type ImmersiveSectionId =
   | 'overview'
   | 'frontend'
