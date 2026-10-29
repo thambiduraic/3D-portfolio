@@ -40,7 +40,7 @@ export const HeroSection: React.FC = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden border-b border-border pb-[var(--spacing-section)] pt-32 md:pb-[var(--spacing-section-lg)] md:pt-44"
+      className="relative overflow-hidden border-b border-border pb-[var(--spacing-section)] pt-[clamp(6rem,18vh,11rem)] md:pb-[var(--spacing-section-lg)]"
     >
       <Container>
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-8">
@@ -57,7 +57,7 @@ export const HeroSection: React.FC = () => {
 
             <h1
               data-hero
-              className="max-w-3xl text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-5xl md:text-6xl"
+              className="max-w-3xl text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-5xl"
             >
               Frontend Engineer specializing in{' '}
               <span className="text-accent sm:whitespace-nowrap">React &amp; TypeScript</span>

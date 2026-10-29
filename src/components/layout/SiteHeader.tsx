@@ -3,6 +3,7 @@ import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { navItems, personalInfo } from '../../data/portfolioData';
 import { Container } from './Container';
 import { Button } from '../ui/Button';
+import { ModeToggle } from '../ui/ModeToggle';
 
 export const SiteHeader: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -42,26 +43,28 @@ export const SiteHeader: React.FC = () => {
           </span>
         </a>
 
-        <nav className="hidden items-center gap-6 md:flex" aria-label="Main Navigation">
+        <nav className="hidden items-center gap-6 xl:flex" aria-label="Main Navigation">
           {navItems.map((item) => <a key={item.href} href={item.href} className="text-xs font-medium text-muted transition-colors hover:text-foreground">{item.label}</a>)}
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-3 xl:flex">
+          <ModeToggle />
           <Button href="#contact" size="sm" variant="secondary" icon={<ArrowUpRight className="h-3.5 w-3.5" />}>Let's Talk</Button>
         </div>
 
-        <button type="button" className="rounded-control border border-transparent p-2 text-foreground transition-colors hover:border-border hover:bg-surface-elevated md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-expanded={mobileMenuOpen} aria-controls="mobile-navigation" aria-label="Toggle navigation menu">
+        <button type="button" className="rounded-control border border-transparent p-2 text-foreground transition-colors hover:border-border hover:bg-surface-elevated xl:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-expanded={mobileMenuOpen} aria-controls="mobile-navigation" aria-label="Toggle navigation menu">
           {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </Container>
 
       {mobileMenuOpen && (
-        <div id="mobile-navigation" className="border-b border-border bg-background px-5 py-5 md:hidden">
+        <div id="mobile-navigation" className="border-b border-border bg-background px-5 py-5 xl:hidden">
           <nav className="flex flex-col" aria-label="Mobile Navigation">
             {navItems.map((item) => <a key={item.href} href={item.href} className="border-b border-border py-3 text-sm font-medium text-muted transition-colors hover:text-foreground" onClick={() => setMobileMenuOpen(false)}>{item.label}</a>)}
           </nav>
-          <div className="pt-5">
+          <div className="space-y-3 pt-5">
             <Button href="#contact" size="md" variant="primary" className="w-full" onClick={() => setMobileMenuOpen(false)} icon={<ArrowUpRight className="h-4 w-4" />}>Contact Me</Button>
+            <ModeToggle className="w-full justify-center" />
           </div>
         </div>
       )}

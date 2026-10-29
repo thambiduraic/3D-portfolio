@@ -2,7 +2,6 @@ import React, { lazy, Suspense } from 'react';
 import { SiteHeader } from './components/layout/SiteHeader';
 import { SiteFooter } from './components/layout/SiteFooter';
 import { Reveal } from './components/animation/Reveal';
-import { ModeToggle } from './components/ui/ModeToggle';
 import { PortfolioModeProvider } from './context/PortfolioModeProvider';
 import { usePortfolioMode } from './context/portfolioMode';
 import { ThemeProvider } from './context/ThemeProvider';
@@ -70,7 +69,6 @@ export const App: React.FC = () => (
   <ThemeProvider>
     <PortfolioModeProvider>
       <PortfolioShell />
-      <ModeToggle />
     </PortfolioModeProvider>
   </ThemeProvider>
 );

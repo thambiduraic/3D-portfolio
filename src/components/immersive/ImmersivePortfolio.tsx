@@ -67,20 +67,17 @@ export const ImmersivePortfolio: React.FC = () => {
         <aside
           ref={panelRef}
           className={cn(
-            'pointer-events-auto absolute border-border backdrop-blur-xl',
+            'pointer-events-auto absolute overflow-hidden border-border backdrop-blur-xl',
             sidebar
-              ? 'inset-y-0 right-auto w-[clamp(18rem,36vw,31rem)] overflow-visible border-r bg-background/80'
-              : 'inset-x-0 bottom-0 max-h-[52dvh] overflow-y-auto border-t bg-background/95 px-5 pb-24 pt-5',
+              ? 'inset-y-0 right-auto w-[clamp(18rem,36vw,31rem)] border-r bg-background/80'
+              : 'inset-x-0 bottom-0 h-[52dvh] border-t bg-background/95 px-5 pt-5',
           )}
         >
           <div
-            className={cn(
-              'no-scrollbar',
-              sidebar && 'h-full overflow-y-auto px-8 pb-20',
-            )}
+            className={cn('no-scrollbar h-full overflow-hidden', sidebar && 'px-8')}
             style={
               sidebar
-                ? { paddingTop: Math.max(112, safeArea.top + 16) }
+                ? { paddingTop: Math.max(96, safeArea.top + 16) }
                 : undefined
             }
           >

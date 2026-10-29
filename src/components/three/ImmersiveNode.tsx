@@ -232,7 +232,7 @@ export const ImmersiveNode: React.FC<ImmersiveNodeProps> = ({
         {label && (
           <sprite
             position={[0, 0.37, 0.02]}
-            scale={[label.aspect * 0.28 * labelScale, 0.28 * labelScale, 1]}
+            scale={[label.aspect * 0.3 * labelScale, 0.3 * labelScale, 1]}
           >
             <spriteMaterial
               ref={labelMaterialRef}
@@ -240,7 +240,6 @@ export const ImmersiveNode: React.FC<ImmersiveNodeProps> = ({
               transparent
               opacity={0.92}
               depthWrite={false}
-              depthTest={false}
               toneMapped={false}
             />
           </sprite>

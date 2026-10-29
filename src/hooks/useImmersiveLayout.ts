@@ -5,7 +5,7 @@ import type { ImmersiveSafeArea } from '../types/portfolio';
 const SIDEBAR_MEDIA_QUERY =
   '(min-width: 1280px), (min-width: 768px) and (orientation: landscape), (orientation: landscape) and (max-height: 600px)';
 
-const SIDE_PANEL_BOTTOM_INSET = 64;
+const SIDE_PANEL_BOTTOM_INSET = 84;
 
 const getSidebarLayout = () =>
   typeof window !== 'undefined' && window.matchMedia(SIDEBAR_MEDIA_QUERY).matches;
@@ -58,7 +58,7 @@ export const useImmersiveLayout = (
         bottom: sidebar
           ? Math.round(Math.max(top + 1, height - SIDE_PANEL_BOTTOM_INSET))
           : Math.round(
-              Math.max(top + 1, Math.min(height, panelRect?.top ?? height)),
+              Math.max(top + 1, Math.min(height, (panelRect?.top ?? height) - 16)),
             ),
         left: sidebar && panelRect ? Math.round(panelRect.right) : 0,
       };

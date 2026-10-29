@@ -39,13 +39,13 @@ export const immersiveSceneNodes: ImmersiveSceneNode[] = [
     section: 'experience',
     label: 'Experience',
     detail: 'ReachCopilot · NSCHOOL',
-    position: [-1.82, -1.55, 1.05],
+    position: [-1.82, -1.3, 1.05],
   },
   {
     section: 'projects',
     label: 'Projects',
     detail: 'PulseBoard',
-    position: [1.95, -1.58, 1.12],
+    position: [1.95, -1.33, 1.12],
   },
   {
     section: 'contact',
@@ -68,7 +68,7 @@ const OVERVIEW_CONTENT = {
   centerX: -0.05,
   centerY: 0.44,
   width: 6.7,
-  height: 4.2,
+  height: 4.5,
 };
 const FOCUS_CONTENT_OFFSET_Y = 0.08;
 

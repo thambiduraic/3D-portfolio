@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   ArrowRight,
-  ArrowUpRight,
   Briefcase,
   Calendar,
   Check,
@@ -116,24 +115,23 @@ const CopyEmailButton: React.FC = () => {
   };
 
   return (
-    <button
+    <Button
       type="button"
       onClick={handleCopy}
-      className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-control border border-border bg-surface px-4 py-2.5 text-xs font-medium text-muted transition-colors hover:border-border-strong hover:text-foreground"
-      aria-label="Copy email address"
+      variant="secondary"
+      size="sm"
+      icon={
+        copied ? (
+          <Check className="h-3.5 w-3.5 text-success" aria-hidden="true" />
+        ) : (
+          <Copy className="h-3.5 w-3.5" aria-hidden="true" />
+        )
+      }
+      className={copied ? 'text-success' : undefined}
+      aria-label={copied ? 'Email address copied' : 'Copy email address'}
     >
-      {copied ? (
-        <>
-          <Check className="h-3.5 w-3.5 text-success" />
-          <span className="text-success">Copied</span>
-        </>
-      ) : (
-        <>
-          <Copy className="h-3.5 w-3.5" />
-          <span>Copy Email</span>
-        </>
-      )}
-    </button>
+      {copied ? 'Copied' : 'Copy Email'}
+    </Button>
   );
 };
 
@@ -146,14 +144,29 @@ const OverviewContent: React.FC<{ onNavigate: (section: ImmersiveSectionId) => v
       Available for Frontend Roles
     </div>
 
-    <div className="space-y-3">
-      <h1 className="text-balance text-4xl font-semibold leading-[1.02] tracking-tight text-foreground xl:text-5xl">
-        {personalInfo.name}
+    <div className="space-y-6">
+      <h1 className="text-balance text-3xl font-semibold leading-[1.02] tracking-tight text-foreground xl:text-4xl">
+        {personalInfo.role}
       </h1>
-      <p className="text-lg font-medium text-accent">{personalInfo.role}</p>
-      <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-dim">
+      <p className="font-mono text-xs tracking-[0.04em] text-muted">
         {personalInfo.focus} · {personalInfo.experienceYears}
       </p>
+    </div>
+
+    <div className="flex flex-wrap gap-3">
+      <Button
+        onClick={() => onNavigate('experience')}
+        icon={<ArrowRight className="h-4 w-4" aria-hidden="true" />}
+      >
+        Explore Experience
+      </Button>
+      <Button
+        variant="secondary"
+        onClick={() => onNavigate('projects')}
+        icon={<ArrowRight className="h-4 w-4" aria-hidden="true" />}
+      >
+        View Selected Work
+      </Button>
     </div>
 
     <p className="max-w-xl text-base leading-relaxed text-muted">{personalInfo.headline}</p>
@@ -169,29 +182,16 @@ const OverviewContent: React.FC<{ onNavigate: (section: ImmersiveSectionId) => v
         <span className="block font-mono text-xl font-semibold text-foreground">
           {personalInfo.experienceYears.split(' ')[0]}
         </span>
-        <span className="mt-1 block text-[10px] uppercase tracking-[0.1em] text-dim">Years exp.</span>
+        <span className="mt-1 block text-xs tracking-[0.04em] text-muted">Years exp.</span>
       </div>
       <div className="px-3">
         <span className="block font-mono text-xl font-semibold text-foreground">{experiences.length}</span>
-        <span className="mt-1 block text-[10px] uppercase tracking-[0.1em] text-dim">Roles</span>
+        <span className="mt-1 block text-xs tracking-[0.04em] text-muted">Roles</span>
       </div>
       <div className="pl-3">
         <span className="block font-mono text-xl font-semibold text-foreground">{projects.length}</span>
-        <span className="mt-1 block text-[10px] uppercase tracking-[0.1em] text-dim">Live project</span>
+        <span className="mt-1 block text-xs tracking-[0.04em] text-muted">Live project</span>
       </div>
-    </div>
-
-    <div className="flex flex-wrap gap-3">
-      <Button onClick={() => onNavigate('experience')} icon={<ArrowRight className="h-4 w-4" />}>
-        Explore Experience
-      </Button>
-      <Button
-        variant="secondary"
-        onClick={() => onNavigate('projects')}
-        icon={<ArrowUpRight className="h-4 w-4" />}
-      >
-        View Selected Work
-      </Button>
     </div>
   </div>
 );
@@ -236,14 +236,16 @@ const FrontendContent: React.FC<{ onNavigate: (section: ImmersiveSectionId) => v
           <Chip key={tech} label={tech} />
         ))}
       </div>
-      <button
+      <Button
         type="button"
         onClick={() => onNavigate('projects')}
-        className="mt-4 inline-flex cursor-pointer items-center gap-1.5 text-xs font-medium text-accent transition-colors hover:text-accent-hover"
+        variant="link"
+        size="xs"
+        icon={<ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />}
+        className="mt-4"
       >
         Open project details
-        <ArrowRight className="h-3.5 w-3.5" />
-      </button>
+      </Button>
     </div>
 
     <div className="rounded-control border border-border bg-background/60 p-4">
@@ -410,18 +412,23 @@ const ContactContent: React.FC = () => (
 
     <div className="flex flex-wrap gap-3">
       {socialLinks.map((link) => (
-        <a
+        <Button
           key={link.label}
           href={link.href}
-          target={link.iconName === 'mail' ? undefined : '_blank'}
-          rel={link.iconName === 'mail' ? undefined : 'noopener noreferrer'}
-          className="inline-flex items-center gap-2 rounded-control border border-border bg-surface/70 px-3 py-2 text-xs font-medium text-muted transition-colors hover:border-border-strong hover:text-foreground"
+          external={link.iconName !== 'mail'}
+          variant="secondary"
+          size="sm"
+          iconPosition="left"
+          icon={
+            link.iconName === 'github' ? (
+              <GithubIcon className="h-3.5 w-3.5" aria-hidden="true" />
+            ) : (
+              <Mail className="h-3.5 w-3.5" aria-hidden="true" />
+            )
+          }
         >
-          {link.iconName === 'github' && <GithubIcon className="h-3.5 w-3.5" />}
-          {link.iconName === 'mail' && <Mail className="h-3.5 w-3.5" />}
           {link.label}
-          <ArrowUpRight className="h-3 w-3 text-dim" />
-        </a>
+        </Button>
       ))}
     </div>
 
@@ -434,7 +441,10 @@ const ContactContent: React.FC = () => (
   </div>
 );
 
-export const ImmersivePanel: React.FC<ImmersivePanelProps> = ({ section, onNavigate }) => {
+export const ImmersivePanel: React.FC<ImmersivePanelProps> = ({
+  section,
+  onNavigate,
+}) => {
   const prefersReducedMotion = usePrefersReducedMotion();
   const currentIndex = immersiveSections.findIndex((item) => item.id === section);
   const previousSection = immersiveSections[(currentIndex - 1 + immersiveSections.length) % immersiveSections.length];
@@ -459,43 +469,52 @@ export const ImmersivePanel: React.FC<ImmersivePanelProps> = ({ section, onNavig
   };
 
   return (
-    <div className="flex min-h-full flex-col">
-      <div className="mb-5 flex items-center justify-between border-b border-border/70 pb-3 font-mono text-[10px] uppercase tracking-[0.14em] text-dim">
-        <span>
-          {String(currentIndex + 1).padStart(2, '0')} / {String(immersiveSections.length).padStart(2, '0')}
-        </span>
-        <span className="text-muted">{immersiveSections[currentIndex]?.label}</span>
+    <div className="flex h-full min-h-0 flex-col">
+      <div className="no-scrollbar min-h-0 flex-1 overflow-y-auto">
+        <div className="mb-5 flex items-center justify-between border-b border-border/70 pb-3 pt-3 font-mono text-[10px] uppercase tracking-[0.14em] text-dim">
+          <span>
+            {String(currentIndex + 1).padStart(2, '0')} / {String(immersiveSections.length).padStart(2, '0')}
+          </span>
+          <span className="text-muted">{immersiveSections[currentIndex]?.label}</span>
+        </div>
+
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={section}
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={prefersReducedMotion ? undefined : { opacity: 0, y: -8 }}
+            transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.28, ease: 'easeOut' }}
+          >
+            {renderContent()}
+          </motion.div>
+        </AnimatePresence>
       </div>
 
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-          key={section}
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={prefersReducedMotion ? undefined : { opacity: 0, y: -8 }}
-          transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.28, ease: 'easeOut' }}
-        >
-          {renderContent()}
-        </motion.div>
-      </AnimatePresence>
-
-      <div className="mt-auto flex items-center justify-between gap-3 border-t border-border/70 pt-5">
-        <button
+      <div className="mt-4 flex shrink-0 items-center justify-between gap-3 border-t border-border/70 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-4">
+        <Button
           type="button"
           onClick={() => onNavigate(previousSection.id)}
-          className="inline-flex cursor-pointer items-center gap-1.5 text-[11px] font-medium text-muted transition-colors hover:text-foreground"
+          variant="secondary"
+          size="sm"
+          icon={<ChevronLeft className="h-4 w-4" aria-hidden="true" />}
+          iconPosition="left"
+          aria-label={`Previous section: ${previousSection.label}`}
+          className="min-h-9"
         >
-          <ChevronLeft className="h-3.5 w-3.5" />
           {previousSection.label}
-        </button>
-        <button
+        </Button>
+        <Button
           type="button"
           onClick={() => onNavigate(nextSection.id)}
-          className="inline-flex cursor-pointer items-center gap-1.5 text-[11px] font-medium text-muted transition-colors hover:text-foreground"
+          variant="secondary"
+          size="sm"
+          icon={<ChevronRight className="h-4 w-4" aria-hidden="true" />}
+          aria-label={`Next section: ${nextSection.label}`}
+          className="min-h-9"
         >
           {nextSection.label}
-          <ChevronRight className="h-3.5 w-3.5" />
-        </button>
+        </Button>
       </div>
     </div>
   );

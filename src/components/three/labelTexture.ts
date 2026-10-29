@@ -1,11 +1,11 @@
 import { CanvasTexture, LinearFilter, SRGBColorSpace } from 'three';
 import type { CanvasTexture as CanvasTextureType } from 'three';
 
-const TITLE_FONT = '600 40px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
-const DETAIL_FONT = '500 23px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
+const TITLE_FONT = '700 44px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
+const DETAIL_FONT = '600 30px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
 const LABEL_SCALE = 2;
-const LABEL_HEIGHT = 92;
-const PADDING_X = 22;
+const LABEL_HEIGHT = 104;
+const PADDING_X = 24;
 
 export interface SceneLabel {
   texture: CanvasTextureType;
@@ -79,11 +79,11 @@ export const createSceneLabel = (
 
   context.font = TITLE_FONT;
   context.fillStyle = palette.title;
-  context.fillText(titleText, PADDING_X, 34);
+  context.fillText(titleText, PADDING_X, 38);
 
   context.font = DETAIL_FONT;
   context.fillStyle = palette.detail;
-  context.fillText(detail, PADDING_X, 67);
+  context.fillText(detail, PADDING_X, 78);
 
   const texture = new CanvasTexture(canvas);
   texture.colorSpace = SRGBColorSpace;

@@ -96,11 +96,6 @@ const ImmersiveScene: React.FC<ImmersiveSceneProps> = ({
         safeArea={safeArea}
       />
 
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2.18, 0]} receiveShadow>
-        <circleGeometry args={[4.8, 64]} />
-        <shadowMaterial transparent opacity={palette.shadowOpacity} color="#000000" />
-      </mesh>
-
       <ScenePipeline reducedMotion={reducedMotion} palette={palette} />
 
       {immersiveSceneNodes.map((node) => (
